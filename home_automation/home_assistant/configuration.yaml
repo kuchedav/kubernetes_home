@@ -17,6 +17,17 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+# Lovelace dashboard configuration
+lovelace:
+  mode: yaml
+  dashboards:
+    lovelace-smart-home:
+      mode: yaml
+      title: Smart Home
+      icon: mdi:home-assistant
+      show_in_sidebar: true
+      filename: lovelace-dashboards.yaml
+
 # myStrom Smart Plugs - using REST commands and template switches
 rest_command:
   coffee_machine_on:

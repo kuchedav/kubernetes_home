@@ -1,0 +1,124 @@
+# Lovelace Dashboard Configuration
+# Location: /config/lovelace-dashboards.yaml inside the container
+#
+# To use this dashboard, add to configuration.yaml:
+#   lovelace:
+#     mode: yaml
+#     dashboards:
+#       lovelace-smart-home:
+#         mode: yaml
+#         title: Smart Home
+#         icon: mdi:home-assistant
+#         show_in_sidebar: true
+#         filename: lovelace-dashboards.yaml
+
+title: Smart Home
+views:
+  - title: Overview
+    path: overview
+    icon: mdi:home
+    cards:
+      # Coffee Machine Card
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Coffee Machine
+            icon: mdi:coffee-maker
+            entities:
+              - entity: switch.coffee_machine
+                name: Power
+              - entity: sensor.coffee_machine_power
+                name: Current Power
+                icon: mdi:flash
+              - entity: sensor.coffee_machine_temperature
+                name: Plug Temperature
+                icon: mdi:thermometer
+              - entity: sensor.coffee_machine_energy
+                name: Total Energy
+                icon: mdi:lightning-bolt
+
+          - type: history-graph
+            title: Coffee Machine Power History
+            hours_to_show: 24
+            entities:
+              - entity: sensor.coffee_machine_power
+                name: Power
+
+      # Dehumidifier Card
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Dehumidifier
+            icon: mdi:air-humidifier
+            entities:
+              - entity: switch.dehumidifier
+                name: Power
+              - entity: sensor.dehumidifier_power
+                name: Current Power
+                icon: mdi:flash
+              - entity: sensor.dehumidifier_temperature
+                name: Plug Temperature
+                icon: mdi:thermometer
+              - entity: sensor.dehumidifier_energy
+                name: Total Energy
+                icon: mdi:lightning-bolt
+
+          - type: history-graph
+            title: Dehumidifier Power History
+            hours_to_show: 24
+            entities:
+              - entity: sensor.dehumidifier_power
+                name: Power
+
+  - title: Energy
+    path: energy
+    icon: mdi:lightning-bolt
+    cards:
+      - type: gauge
+        entity: sensor.coffee_machine_power
+        name: Coffee Machine
+        min: 0
+        max: 2000
+        severity:
+          green: 0
+          yellow: 500
+          red: 1000
+
+      - type: gauge
+        entity: sensor.dehumidifier_power
+        name: Dehumidifier
+        min: 0
+        max: 500
+        severity:
+          green: 0
+          yellow: 200
+          red: 350
+
+      - type: entities
+        title: Energy Consumption
+        entities:
+          - entity: sensor.coffee_machine_energy
+            name: Coffee Machine Total
+          - entity: sensor.dehumidifier_energy
+            name: Dehumidifier Total
+
+  - title: Climate
+    path: climate
+    icon: mdi:thermometer
+    cards:
+      - type: entities
+        title: Plug Temperatures
+        entities:
+          - entity: sensor.coffee_machine_temperature
+            name: Coffee Machine Plug
+          - entity: sensor.dehumidifier_temperature
+            name: Dehumidifier Plug
+
+      - type: history-graph
+        title: Temperature History
+        hours_to_show: 48
+        entities:
+          - entity: sensor.coffee_machine_temperature
+            name: Coffee Machine
+          - entity: sensor.dehumidifier_temperature
+            name: Dehumidifier
