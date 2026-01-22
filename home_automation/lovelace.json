@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "title": "David Home",
+      "views": [
+        {
+          "title": "Home",
+          "path": "home",
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "title": "Coffee Machine",
+                  "icon": "mdi:coffee-maker",
+                  "entities": [
+                    {
+                      "entity": "switch.coffee_machine",
+                      "name": "Power Switch"
+                    },
+                    {
+                      "entity": "sensor.coffee_machine_power",
+                      "name": "Current Power"
+                    },
+                    {
+                      "entity": "sensor.coffee_machine_temperature",
+                      "name": "Temperature"
+                    },
+                    {
+                      "entity": "sensor.coffee_machine_energy",
+                      "name": "Energy Used"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "entities",
+                  "title": "Dehumidifier",
+                  "icon": "mdi:air-humidifier",
+                  "entities": [
+                    {
+                      "entity": "switch.dehumidifier",
+                      "name": "Power Switch"
+                    },
+                    {
+                      "entity": "sensor.dehumidifier_power",
+                      "name": "Current Power"
+                    },
+                    {
+                      "entity": "sensor.dehumidifier_temperature",
+                      "name": "Temperature"
+                    },
+                    {
+                      "entity": "sensor.dehumidifier_energy",
+                      "name": "Energy Used"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

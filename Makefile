@@ -69,7 +69,8 @@ debug_stop:
 
 # Example queries for Prometheus
 # > kube_pod_info
-# > sum(container_memory_usage_bytes{pod="fastapi-kubernetes-6bf6f75b46-qlz2v"})
+# > sum(container_memory_usage_bytes{pod=~"fastapi-kubernetes-.*"})
+# > sum(container_cpu_load_average_10s{pod=~"fastapi-kubernetes-.*"})
 
 # Install the metrics server
 prometheus_install_metrics_server:

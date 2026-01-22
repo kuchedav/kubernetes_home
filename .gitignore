@@ -135,3 +135,9 @@ youtube-tutorial-series
 # ignore certificates
 *.crt
 *.key
+# local hardware IP maps
+hardware_setup/ip_map.local.md
+
+# credentials files
+.credentials
+*/.credentials

@@ -1,0 +1,99 @@
+# Home Assistant Configuration
+# Location: /config/configuration.yaml inside the container
+#
+# This is a backup of the Home Assistant configuration.
+# To apply changes, copy this file to the container:
+#   docker cp configuration.yaml homeassistant:/config/configuration.yaml
+#   docker exec homeassistant ha core restart
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# myStrom Smart Plugs - using REST commands and template switches
+rest_command:
+  coffee_machine_on:
+    url: "http://192.168.0.106/relay?state=1"
+  coffee_machine_off:
+    url: "http://192.168.0.106/relay?state=0"
+  dehumidifier_on:
+    url: "http://192.168.0.233/relay?state=1"
+  dehumidifier_off:
+    url: "http://192.168.0.233/relay?state=0"
+
+switch:
+  - platform: template
+    switches:
+      coffee_machine:
+        friendly_name: "Coffee Machine"
+        value_template: "{{ is_state('binary_sensor.coffee_machine_relay', 'on') }}"
+        turn_on:
+          service: rest_command.coffee_machine_on
+        turn_off:
+          service: rest_command.coffee_machine_off
+        icon_template: mdi:coffee-maker
+      dehumidifier:
+        friendly_name: "Dehumidifier"
+        value_template: "{{ is_state('binary_sensor.dehumidifier_relay', 'on') }}"
+        turn_on:
+          service: rest_command.dehumidifier_on
+        turn_off:
+          service: rest_command.dehumidifier_off
+        icon_template: mdi:air-humidifier
+
+# myStrom REST Sensors for power and temperature monitoring
+rest:
+  # Coffee Machine sensors
+  - resource: http://192.168.0.106/report
+    scan_interval: 10
+    sensor:
+      - name: "Coffee Machine Power"
+        value_template: "{{ value_json.power }}"
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+      - name: "Coffee Machine Temperature"
+        value_template: "{{ value_json.temperature }}"
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+      - name: "Coffee Machine Energy"
+        value_template: "{{ (value_json.energy_since_boot / 3600000) | round(2) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+    binary_sensor:
+      - name: "Coffee Machine Relay"
+        value_template: "{{ value_json.relay }}"
+        device_class: power
+
+  # Dehumidifier sensors
+  - resource: http://192.168.0.233/report
+    scan_interval: 10
+    sensor:
+      - name: "Dehumidifier Power"
+        value_template: "{{ value_json.power }}"
+        unit_of_measurement: "W"
+        device_class: power
+        state_class: measurement
+      - name: "Dehumidifier Temperature"
+        value_template: "{{ value_json.temperature }}"
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+      - name: "Dehumidifier Energy"
+        value_template: "{{ (value_json.energy_since_boot / 3600000) | round(2) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+    binary_sensor:
+      - name: "Dehumidifier Relay"
+        value_template: "{{ value_json.relay }}"
+        device_class: power

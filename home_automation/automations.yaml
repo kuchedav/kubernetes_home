@@ -1,0 +1,61 @@
+# Home Assistant Automations
+# Location: /config/automations.yaml inside the container
+#
+# This is a backup of the automations configured via the UI.
+# Note: Device IDs are specific to the running instance.
+
+- id: '1691518971866'
+  alias: Close all Storen
+  description: 'Closes all connected blinds/shutters'
+  trigger: []
+  condition: []
+  action:
+  - device_id: dd60e676d3882f38b87ac333a5501d73
+    domain: cover
+    entity_id: d7f4eeb6a40e2b4d93bbfeaae087a5e5
+    type: close
+  - device_id: 15ee60c99bc042dc82a0c3ed073298e0
+    domain: cover
+    entity_id: 3044329ea07d05a9721a52061dd543d2
+    type: close
+  - device_id: bddec2d97ff08d97ac98375cd058dbe6
+    domain: cover
+    entity_id: f0f364799ff608b94c57a9125a649de1
+    type: close
+  - device_id: 65f5f2755b0420b13f8a998a7132710e
+    domain: cover
+    entity_id: 41476ebcc2c59e4a7496722f4cfc5e40
+    type: close
+  - device_id: 9ee6d289d96f590fe563b38e9a14531a
+    domain: cover
+    entity_id: 4db58011642728e40d31a3cbd7e2fc1d
+    type: close
+  mode: single
+
+- id: '1691519237025'
+  alias: Open all Storen
+  description: 'Opens all connected blinds/shutters'
+  trigger: []
+  condition: []
+  action:
+  - device_id: dd60e676d3882f38b87ac333a5501d73
+    domain: cover
+    entity_id: d7f4eeb6a40e2b4d93bbfeaae087a5e5
+    type: open
+  - device_id: 15ee60c99bc042dc82a0c3ed073298e0
+    domain: cover
+    entity_id: 3044329ea07d05a9721a52061dd543d2
+    type: open
+  - device_id: bddec2d97ff08d97ac98375cd058dbe6
+    domain: cover
+    entity_id: f0f364799ff608b94c57a9125a649de1
+    type: open
+  - device_id: 65f5f2755b0420b13f8a998a7132710e
+    domain: cover
+    entity_id: 41476ebcc2c59e4a7496722f4cfc5e40
+    type: open
+  - device_id: 9ee6d289d96f590fe563b38e9a14531a
+    domain: cover
+    entity_id: 4db58011642728e40d31a3cbd7e2fc1d
+    type: open
+  mode: single

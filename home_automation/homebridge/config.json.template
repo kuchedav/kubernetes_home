@@ -1,0 +1,30 @@
+{
+    "bridge": {
+        "name": "Homebridge B61D",
+        "username": "0E:D7:82:78:B6:1D",
+        "port": 51287,
+        "pin": "210-04-787",
+        "advertiser": "bonjour-hap"
+    },
+    "accessories": [],
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8581,
+            "platform": "config"
+        },
+        {
+            "name": "Shelly",
+            "username": "<SHELLY_CLOUD_EMAIL>",
+            "password": "<SHELLY_CLOUD_PASSWORD>",
+            "admin": {
+                "enabled": true
+            },
+            "_bridge": {
+                "username": "0E:B2:12:9B:35:1D",
+                "port": 42372
+            },
+            "platform": "Shelly"
+        }
+    ]
+}
